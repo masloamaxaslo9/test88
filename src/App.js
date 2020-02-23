@@ -1,32 +1,78 @@
 import React from 'react';
 import './App.css';
-import BlockUser from "./BlockUser/BlockUser";
+import TaskComponent from "./Task/TaskComponent";
 
 class App extends React.Component {
 
     state = {
-        users: [
-            { name: 'Gregory', surname: 'Point', age: Math.round(Math.random() * 100)},
-            { name: 'Tomas', surname: 'Tobi', age: Math.round(Math.random() * 100)},
-            { name: 'Victoria', surname: 'Holli', age: Math.round(Math.random() * 100)},
-            { name: 'Seiko', surname: 'Zero', age: Math.round(Math.random() * 100)},
-            { name: 'Mia', surname: 'Loop', age: Math.round(Math.random() * 100)}
-        ]
+        list: [],
+        showBlockAddTask: false,
+        newTaskName: ''
+    }
+
+    showBlockAddNewTask() {
+        this.setState({ showBlockAddTask: !this.state.showBlockAddTask })
+    }
+
+    createNewTask() {
+        const newList = [...this.state.list]
+
+        newList.push(
+            { name: this.state.newTaskName }
+        )
+
+        this.setState({
+            list: newList,
+            newTaskName: '',
+            showBlockAddTask: false
+        })
+    }
+
+    deleteTask(index) {
+        const newList = [...this.state.list]
+        newList.splice(index, 1)
+        this.setState({ list: newList })
     }
 
     render() {
-        let users = this.state.users
-
-        return (
-            <div className="app">
-                <BlockUser name={users[0].name} surname={users[0].surname} age={users[0].age} />
-                <BlockUser name={users[1].name} surname={users[1].surname} age={users[1].age} />
-                <BlockUser name={users[2].name} surname={users[2].surname} age={users[2].age} />
-                <BlockUser name={users[3].name} surname={users[3].surname} age={users[3].age} />
-                <BlockUser name={users[4].name} surname={users[4].surname} age={users[4].age} />
+        return(
+            <div className="to-do-app">
+                <h1>ToDo List
+                    <div className="header-buttons">
+                        <button onClick={this.showBlockAddNewTask.bind(this)}>Add Task</button>
+                    </div>
+                </h1>
+                <div className="blocks">
+                    { this.state.showBlockAddTask ?
+                        <div className="add-new-task">
+                            <label>Enter the name task:</label>
+                            <input
+                                type="text"
+                                onKeyDown={ event => {
+                                    if (event.key === 'Enter') this.createNewTask()
+                                } }
+                                onChange={event => { this.setState({newTaskName: event.target.value}) }} />
+                            <button onClick={this.createNewTask.bind(this)}>Add</button>
+                        </div> : null
+                    }
+                </div>
+                <div className="list">
+                    { this.state.list.length ?
+                            this.state.list.map((task, index) => (
+                                    <TaskComponent
+                                        key={index}
+                                        task={task}
+                                        index={index}
+                                        deleteTask={this.deleteTask.bind(this, index)}
+                                    />
+                                )
+                            )
+                            : <p className="none-tasks">Tasks None.</p> }
+                </div>
             </div>
         )
     }
+
 }
 
 export default App;

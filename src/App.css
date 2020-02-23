@@ -2,32 +2,163 @@
   box-sizing: border-box;
 }
 
-.app {
+.to-do-app {
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   flex-wrap: wrap;
   padding: 30px 50px;
 }
 
-.user-block {
-  width: calc(20% - 40px);
-  height: auto;
-  padding: 25px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  margin: 20px;
+.to-do-app h1 {
+  margin: 0 auto 0;
+  width: 50%;
 }
 
-.user-block p {
-  margin-top: 0;
+.header-buttons {
+  margin: 20px 0 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
+.blocks {
+  width: 50%;
+  margin: 0 auto 20px;
+}
 
+.blocks label {
+  color: rgba(34,130,255,0.67);
+  font-size: 1.25rem;
+  margin-right: 15px;
+}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.blocks input {
+  margin-right: 15px;
+  border: 1px solid rgba(34,130,255,0.67);
+  border-radius: 5px;
+  padding: 10px 20px;
+  color: rgba(34,130,255,0.67);
+  font-family: Calibri, sans-serif;
+  font-size: 1rem;
+  outline: none;
+}
+
+.blocks button {
+  background-color: transparent;
+  border: 1px solid rgba(34,130,255,0.67);
+  border-radius: 5px;
+  padding: 10px 20px;
+  color: rgba(34,130,255,0.67);
+  font-family: Calibri, sans-serif;
+  font-size: 1rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.header-buttons button {
+  background-color: transparent;
+  border: 1px solid rgba(34,130,255,0.67);
+  border-radius: 5px;
+  padding: 10px 20px;
+  width: calc( 20% - 15px );
+  color: rgba(34,130,255,0.67);
+  font-family: Calibri, sans-serif;
+  font-size: 1rem;
+  outline: none;
+  cursor: pointer;
+  margin: 0 15px 15px 0;
+}
+
+.list {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border: 2px solid rgba(34,130,255,0.67);
+  margin-bottom: 10px;
+}
+
+.task p {
+  color: rgba(100, 100, 100, 1);
+  font-size: 1.15rem;
+  position: relative;
+  padding-left: 20px;
+}
+
+.task span {
+  position: absolute;
+  left: 0;
+}
+
+.delete-item {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  color: rgba(255, 0, 0, .7);
+  transition: .3s;
+  white-space: nowrap;
+}
+
+.delete-item:hover {
+  color: rgba(255, 0, 0, 1);
+}
+
+.none-tasks {
+  color: rgba(34,130,255,0.5);
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1440px) {
+  .to-do-app h1 {
+    width: 75%;
   }
-  to {
-    transform: rotate(360deg);
+
+  .blocks {
+    width: 75%;
+  }
+
+  .list {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 999px) {
+  .to-do-app {
+    padding: 20px 0;
+  }
+
+  .to-do-app h1 {
+    width: 95%;
+  }
+
+  .header-buttons button {
+    margin: 0 0 15px 0;
+    width: 100%;
+  }
+
+  .blocks {
+    width: 95%;
+  }
+
+  .blocks label {
+    margin: 0 auto 20px 0;
+    display: block;
+  }
+
+  .blocks input,
+  .blocks button {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .list {
+    width: 95%;
   }
 }
