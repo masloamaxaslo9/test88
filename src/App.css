@@ -88,11 +88,28 @@
   font-size: 1.15rem;
   position: relative;
   padding-left: 20px;
+  cursor: pointer;
 }
 
 .task span {
   position: absolute;
   left: 0;
+}
+
+.task b {
+  font-weight: 400;
+}
+
+.task input {
+  outline: none;
+  padding: 5px 15px;
+  border-radius: 5px;
+  box-shadow: 0 0 0 0;
+  border: 1px solid rgba(34,130,255,0.67);
+}
+
+.task input.red {
+  border-color: red;
 }
 
 .delete-item {

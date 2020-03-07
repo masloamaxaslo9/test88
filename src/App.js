@@ -5,7 +5,20 @@ import TaskComponent from "./Task/TaskComponent";
 class App extends React.Component {
 
     state = {
-        list: [],
+        list: [
+            {
+                name: 'Test 1',
+                type: 'text'
+            },
+            {
+                name: 'Test 2',
+                type: 'text'
+            },
+            {
+                name: 'Test 3',
+                type: 'text'
+            }
+        ],
         showBlockAddTask: false,
         newTaskName: ''
     }
@@ -32,6 +45,50 @@ class App extends React.Component {
         const newList = [...this.state.list]
         newList.splice(index, 1)
         this.setState({ list: newList })
+    }
+
+    changeType(task, index) {
+        if (task.type === 'text') task.type = 'input'
+
+        const newList = [...this.state.list]
+
+        newList.splice(index, 1, task)
+
+        this.setState({list: newList})
+    }
+
+    changeName(task, index, event) {
+        if (event.key === 'Enter' && !event.target.classList.contains('red')) {
+            const newList = [...this.state.list]
+
+            task.name = event.target.value
+            task.type = 'text'
+
+            newList.splice(index, 1, task)
+            this.setState({list: newList})
+        }
+    }
+
+    hideInputShowText(task, index, event) {
+
+        if (event.target.classList.contains('task')) {
+            const newList = [...this.state.list]
+
+            task.type = 'text'
+
+            newList.splice(index, 1, task)
+
+            this.setState({list: newList})
+        }
+    }
+
+    validationInput(task, index, event) {
+        const newList = [...this.state.list]
+        task.name = event.target.value
+
+        newList.splice(index, 1, task)
+
+        this.setState({list: newList})
     }
 
     render() {
@@ -64,6 +121,10 @@ class App extends React.Component {
                                         task={task}
                                         index={index}
                                         deleteTask={this.deleteTask.bind(this, index)}
+                                        changeType={this.changeType.bind(this, task, index)}
+                                        changeName={this.changeName.bind(this, task, index)}
+                                        hideInputShowText={this.hideInputShowText.bind(this, task, index)}
+                                        validationInput={this.validationInput.bind(this, task, index)}
                                     />
                                 )
                             )
