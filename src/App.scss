@@ -24,6 +24,9 @@
 .blocks {
   width: 50%;
   margin: 0 auto 20px;
+  .input-add-task.error-input {
+    border: 1px solid rgba(255, 0, 9, 0.67);
+  }
 }
 
 .blocks label {
@@ -67,6 +70,12 @@
   outline: none;
   cursor: pointer;
   margin: 0 15px 15px 0;
+  transition: .3s;
+
+  &:hover {
+    background-color: rgba(34,130,255,0.67);
+    color: white;
+  }
 }
 
 .list {

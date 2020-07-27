@@ -1,8 +1,14 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import TaskComponent from "./Task/TaskComponent";
 
 class App extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.refInputAddTask = React.createRef()
+    }
 
     state = {
         list: [
@@ -20,7 +26,8 @@ class App extends React.Component {
             }
         ],
         showBlockAddTask: false,
-        newTaskName: ''
+        newTaskName: '',
+
     }
 
     showBlockAddNewTask() {
@@ -28,17 +35,32 @@ class App extends React.Component {
     }
 
     createNewTask() {
-        const newList = [...this.state.list]
+        if (this.state.newTaskName === "") {
+            console.log(this.refInputAddTask.current.classList)
+            this.refInputAddTask.current.classList.add("error-input")
+            return;
+        }
+
+        const newList = [...this.state.list];
 
         newList.push(
             { name: this.state.newTaskName }
-        )
+        );
 
         this.setState({
             list: newList,
             newTaskName: '',
             showBlockAddTask: false
         })
+    }
+
+    decoratorsKeyCreateTask(event) {
+        this.refInputAddTask.current.classList.remove("error-input")
+
+        if (event.key !== 'Enter')
+            return;
+
+        this.createNewTask()
     }
 
     deleteTask(index) {
@@ -104,10 +126,10 @@ class App extends React.Component {
                         <div className="add-new-task">
                             <label>Enter the name task:</label>
                             <input
+                                className={"input-add-task"}
+                                ref={this.refInputAddTask}
                                 type="text"
-                                onKeyDown={ event => {
-                                    if (event.key === 'Enter') this.createNewTask()
-                                } }
+                                onKeyDown={ this.decoratorsKeyCreateTask.bind(this) }
                                 onChange={event => { this.setState({newTaskName: event.target.value}) }} />
                             <button onClick={this.createNewTask.bind(this)}>Add</button>
                         </div> : null
